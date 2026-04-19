@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Age is Required"],
       min: [18, "Age is less then 18"],
+      max: [100, "Age is more then 100"],
     },
     gender: {
       type: String,
@@ -52,7 +53,7 @@ const userSchema = new mongoose.Schema(
       default:
         "https://static.vecteezy.com/system/resources/thumbnails/003/337/584/small/default-avatar-photo-placeholder-profile-icon-vector.jpg",
       validate(value) {
-        if (!validator.isURL(value)) {
+        if (value && !validator.isURL(value)) {
           throw new Error("Invalid Photo URL: " + value);
         }
       },
